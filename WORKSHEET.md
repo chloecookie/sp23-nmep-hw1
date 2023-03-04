@@ -28,7 +28,11 @@ Feel free to ask your NMEP friends if you don't know!
 
 ## -1.0 What is the difference between `torch.nn.Module` and `torch.nn.functional`?
 
-`YOUR ANSWER HERE`
+torch.nn.Module is the base class for all neural network modules. It allows you to define and organize parameters and layers of a neural network. It's used to create custom neural networks. It also includes a lot of built-in methods for managing the parameters. such as parameters(), zero_grad(), and .to(). 
+
+torch.nn.functional is ma module that has pre-implemented functions such as convolution, pooling, activation functions, loss functions. It is a stateless function. 
+
+torch.nn.Module is used for defining the architecture of a neural network , whereas torch.nn.functional already has pre-implemented functions that can be used in the forward pass. 
 
 ## -1.1 What is the difference between a Dataset and a DataLoader?
 
