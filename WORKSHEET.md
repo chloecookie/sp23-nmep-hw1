@@ -145,23 +145,23 @@ Visualize ~10 or so examples from the dataset. There's many ways to do it - you 
 Be sure to also get the class names. You might notice that we don't have them loaded anywhere in the repo - feel free to fix it or just hack it together for now, the class names are in a file in the same folder as the hdf5 dataset.
 
 
-
-
 # Part 2: Models
 
 The following questions relate to `models/build.py` and `models/models.py`.
 
 ## What models are implemented for you?
 
-`YOUR ANSWER HERE`
+models/build.py implemends the function that builds the model. It specifies different build parameters if the model is LeNet vs if the model is ResNet18.
+
+Lenet.py creates a class that defines LeNet that contains 32x32 color images and 200 classes. 
+
+Resnet.py implements a class that defines a residual block for the ResNet architecture and another class called ResNet18. 
 
 ## What do PyTorch models inherit from? What functions do we need to implement for a PyTorch Model? (hint there are 2)
 
-`YOUR ANSWER HERE`
+Pytorch models inherit from nn.module. We need to implement the functions init and forward. Init implements the attributes that the neural network needs, such as Conv2d and Sigmoid. Forward implements the forward pass and flattens the image so the data can be processed better. 
 
 ## How many layers does our implementation of LeNet have? How many parameters does it have? (hint: to count the number of parameters, you might want to run the code)
-
-`YOUR ANSWER HERE`
 
 
 
