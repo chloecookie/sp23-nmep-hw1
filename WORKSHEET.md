@@ -120,7 +120,7 @@ self._get_transforms is the function that applies the transformations.  There is
 
 ### 1.1.5 What does `transforms.Normalize` do? What do the parameters mean? (hint: take a look here: https://pytorch.org/vision/main/generated/torchvision.transforms.Normalize.html)
 
-`YOUR ANSWER HERE`
+transforms 
 
 ## 1.2 MediumImagenetHDF5Dataset
 
@@ -144,7 +144,7 @@ Visualize ~10 or so examples from the dataset. There's many ways to do it - you 
 
 Be sure to also get the class names. You might notice that we don't have them loaded anywhere in the repo - feel free to fix it or just hack it together for now, the class names are in a file in the same folder as the hdf5 dataset.
 
-`YOUR ANSWER HERE`
+
 
 
 # Part 2: Models
