@@ -86,33 +86,37 @@ The following questions relate to `data/build.py` and `data/datasets.py`.
 
 ### 1.0.0 What does `build_loader` do?
 
-`YOUR ANSWER HERE`
+Build_Loader configures different datasets depending on the dataset (cifar 10 or medium_imagenet). It also sets the definitions of Dataloaders for training, validating, and testing. 
 
 ### 1.0.1 What functions do you need to implement for a PyTorch Datset? (hint there are 3)
 
-`YOUR ANSWER HERE`
+3 functions for training, validating, and testing that are each an instance of the corresponding dataset that it is using (cifar10 or medium_imagenet). 
 
 ## 1.1 CIFAR10Dataset
 
 ### 1.1.0 Go through the constructor. What field actually contains the data? Do we need to download it ahead of time?
 
-`YOUR ANSWER HERE`
+The field that actually contains the dataset is in data/datasets.py 
+
+self.dataset = CIFAR10(root="/data/cifar10", train=self.train, download=True). We do need to download it ahead of time. 
 
 ### 1.1.1 What is `self.train`? What is `self.transform`?
 
-`YOUR ANSWER HERE`
+If self.train is toggled true, then data augmentations are applied to the images. This is used during training to improve the model's accuracy. Some transformations are flipping, rotating, and resizing. 
+
+Self.transforms is implemented if self.train is true. It applies the transformations such as color jittering, random horizontal flips, normalizing, and resizing. 
 
 ### 1.1.2 What does `__getitem__` do? What is `index`?
 
-`YOUR ANSWER HERE`
+__getitem__ is how we index into an instance of self.dataset. It takes out the image and the label. Index is a specific sampled image and label of the dataset (e.g. index-th image). The image then passes through the transform function which applied transformations to the image. What's returned is the new transformed image and the label. 
 
 ### 1.1.3 What does `__len__` do?
 
-`YOUR ANSWER HERE`
+__len__ returns the length of the dataset. 
 
 ### 1.1.4 What does `self._get_transforms` do? Why is there an if statement?
 
-`YOUR ANSWER HERE`
+self._get_transforms is the function that applies the transformations.  There is an if statement because only certain transform functions are applied if self.train is True (ColorJitter and RandomHorizontalFlip). During training, self.train might be set to True. During inference, self.train might be set to False because you're not training but you might still want to preprocess the data. 
 
 ### 1.1.5 What does `transforms.Normalize` do? What do the parameters mean? (hint: take a look here: https://pytorch.org/vision/main/generated/torchvision.transforms.Normalize.html)
 
