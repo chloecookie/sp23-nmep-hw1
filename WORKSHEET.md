@@ -36,13 +36,21 @@ torch.nn.Module is used for defining the architecture of a neural network , wher
 
 ## -1.1 What is the difference between a Dataset and a DataLoader?
 
-`YOUR ANSWER HERE`
+Dataset stores the data and the corresponding labels and DataLoader creates an iterable that wraps around the Dataset so you can easily manipulate the data. It also turns the training and testing data into minibatches. We want to have mini batches because it's more computationally efficient and we perform gradient descent more often so its faster to improve (once per minibatch instead of once per epoch). We usually set Dataset equal to a variable and then pass that into DataLoader. 
+
+Dataset: 
+train_data = datasets.FashionMNIST(
+    root="data", # where to download data to?
+    train=True, # get training data
+    download=True, # download data if it doesn't exist on disk
+    transform=ToTensor(), # images come as PIL format, we want to turn into Torch tensors
+    target_transform=None # you can transform labels as well
+)
+
 
 ## -1.2 What does `@torch.no_grad()` above a function header do?
 
-`YOUR ANSWER HERE`
-
-
+It temporarily sets all require_grad() flags to false. It reduces memory and speeds up computation. It's used to perform inference without gradient descent and ensure there's no leak test data in the model. 
 
 # Part 0: Understanding the codebase
 
@@ -50,31 +58,29 @@ Read through `README.md` and follow the steps to understand how the repo is stru
 
 ## 0.0 What are the `build.py` files? Why do we have them?**
 
-`YOUR ANSWER HERE`
+Build.py files contain the data loader builder and the model builder. 
 
 ## 0.1 Where would you define a new model?
 
-`YOUR ANSWER HERE`
+We would define a new model by using the build_model function in models/build.py. 
 
 ## 0.2 How would you add support for a new dataset? What files would you need to change?
 
-`YOUR ANSWER HERE`
+We would add support for a new dataset in data/datasets.py where dataset loaders are defined. 
 
 ## 0.3 Where is the actual training code?
 
-`YOUR ANSWER HERE`
+The actual training code is in main.py. 
 
 ## 0.4 Create a diagram explaining the structure of `main.py` and the entire code repo.
 
 Be sure to include the 4 main functions in it (`main`, `train_one_epoch`, `validate`, `evaluate`) and how they interact with each other. Also explain where the other files are used. No need to dive too deep into any part of the code for now, the following parts will do deeper dives into each part of the code. For now, read the code just enough to understand how the pieces come together, not necessarily the specifics. You can use any tool to create the diagram (e.g. just explain it in nice markdown, draw it on paper and take a picture, use draw.io, excalidraw, etc.)
 
-`YOUR ANSWER HERE`
-
-
 
 # Part 1: Datasets
 
 The following questions relate to `data/build.py` and `data/datasets.py`.
+
 
 ## 1.0 Builder/General
 
