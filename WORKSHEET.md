@@ -126,17 +126,19 @@ transforms
 
 ### 1.2.0 Go through the constructor. What field actually contains the data? Where is the data actually stored on honeydew? What other files are stored in that folder on honeydew? How large are they?
 
-`YOUR ANSWER HERE`
+The field that actually contains the data is the filepath: str = "/data/medium-imagenet/medium-imagenet-nmep-96.hdf5",
+
 
 > *Some background*: HDF5 is a file format that stores data in a hierarchical structure. It is similar to a python dictionary. The files are binary and are generally really efficient to use. Additionally, `h5py.File()` does not actually read the entire file contents into memory. Instead, it only reads the data when you access it (as in `__getitem__`). You can learn more about [hdf5 here](https://portal.hdfgroup.org/display/HDF5/HDF5) and [h5py here](https://www.h5py.org/).
 
 ### 1.2.1 How is `_get_transforms` different from the one in CIFAR10Dataset?
 
-`YOUR ANSWER HERE`
+_get_transforms is different because the one in CIFAR10Dataset applies a set of image augmentations to the dateaset. _get_transforms in MediumImagenet normalizes and resizes for the base layer and then if a set of conditions is fulfilled, then random horizontal flipping and color jittering is applid. 
 
 ### 1.2.2 How is `__getitem__` different from the one in CIFAR10Dataset? How many data splits do we have now? Is it different from CIFAR10? Do we have labels/annotations for the test set?
 
-`YOUR ANSWER HERE`
+__getitem__ in CIFAR10 gets the specific image and label at that index and then transforms it. The transformed image and label is returned. __getitem__ in MediumImagenet allows you to read the data as the entire file contents are not stored in memory. self.split  is used to determine which dataset split (train, validation, or test) the item belongs to. If the split is not "test", the label data is also retrieved from the file using the same index and split.
+It returns a tuple containing the transformed image data and the label data as a PyTorch tensor object. If the split is "test", the label is set to -1 because the test dataset may not have labels.
 
 ### 1.2.3 Visualizing the dataset
 
