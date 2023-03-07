@@ -163,24 +163,23 @@ Pytorch models inherit from nn.module. We need to implement the functions init a
 
 ## How many layers does our implementation of LeNet have? How many parameters does it have? (hint: to count the number of parameters, you might want to run the code)
 
-
-
 # Part 3: Training
 
 The following questions relate to `main.py`, and the configs in `configs/`.
 
 ## 3.0 What configs have we provided for you? What models and datasets do they train on?
 
-`YOUR ANSWER HERE`
+The configs that we have set a few parameters such as batch size, image size, the model, number of classes, drop rate, epoch start, number of epochs, learning rate, and others. They use the swin model whcih is a transformer and they use a dataset that is called CIFAR. 
+
 
 ## 3.1 Open `main.py` and go through `main()`. In bullet points, explain what the function does.
 
-`YOUR ANSWER HERE`
+Main() is a function that first sets the device and then builds a model with the preloaded parameters from the config file. The optimizer is also built using the preloaded parameters from the config file. The loss function/criterion is set to CrossEntropyLoss. For every epoch in the range, the train_one_epoch and validate function is called. 
 
 ## 3.2 Go through `validate()` and `evaluate()`. What do they do? How are they different? 
 > Could we have done better by reusing code? Yes. Yes we could have but we didn't... sorry...
 
-`YOUR ANSWER HERE`
+The validate function sets the model to evaluate mode from trainign mode. It computes the output for each image that you feed into the model, measures accuracy and loss, and also tracks the elapsed time the computation takes.The loss and accuracy values are then stored in loss_meter and acc1_meter, respectively.  The evaluate function sets the model to evaluate mode too and returns the predictions of the images in a list which is concantenated into a numpy array.
 
 
 # Part 4: AlexNet
