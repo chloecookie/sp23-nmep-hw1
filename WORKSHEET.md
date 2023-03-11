@@ -76,6 +76,7 @@ The actual training code is in main.py.
 
 Be sure to include the 4 main functions in it (`main`, `train_one_epoch`, `validate`, `evaluate`) and how they interact with each other. Also explain where the other files are used. No need to dive too deep into any part of the code for now, the following parts will do deeper dives into each part of the code. For now, read the code just enough to understand how the pieces come together, not necessarily the specifics. You can use any tool to create the diagram (e.g. just explain it in nice markdown, draw it on paper and take a picture, use draw.io, excalidraw, etc.)
 
+Diagram: https://imgur.com/a/cxC1Uh8
 
 # Part 1: Datasets
 
@@ -146,6 +147,28 @@ Visualize ~10 or so examples from the dataset. There's many ways to do it - you 
 
 Be sure to also get the class names. You might notice that we don't have them loaded anywhere in the repo - feel free to fix it or just hack it together for now, the class names are in a file in the same folder as the hdf5 dataset.
 
+
+def imshow(img):
+  img = img / 2 + 0.5   # unnormalize
+  npimg = img.numpy()   # convert from tensor
+  plt.imshow(np.transpose(npimg, (1, 2, 0))) 
+  plt.show()
+
+def main():
+  transform = transforms.Compose( [transforms.ToTensor(),
+    transforms.Normalize((0.5, 0.5, 0.5),
+      (0.5, 0.5, 0.5))])
+
+  dataiter = iter(trainloader)
+  imgs, lbls = next(dataiter)
+
+  for i in range(10):  
+      plt.imshow(torchvision.utils.make_grid(imgs[i]))
+  
+
+main()
+
+Parts of the code is from :https://github.com/sanghoon/pytorch_imagenet/blob/master/toy_cifar.py
 
 # Part 2: Models
 
