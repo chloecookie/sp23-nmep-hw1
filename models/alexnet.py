@@ -6,7 +6,7 @@ class AlexNet(nn.Module):
     """Alexnet"""
 
     def __init__(self, num_classes: int = 200) -> None:
-        super().__init__(3,3)
+        super(AlexNet, self).__init__()
         self.features = nn.Sequential(
             nn.Conv2d(11, 11, kernel_size=64, stride=4, padding=2),
             nn.MaxPool2d(3, stride=2),
