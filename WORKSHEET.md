@@ -235,11 +235,14 @@ Linear with num_classes output units
 ## 4.1 How many parameters does AlexNet have? How does it compare to LeNet? With the same batch size, how much memory do LeNet and AlexNet take up while training? 
 > (hint: use `gpuststat`)
 
-`YOUR ANSWER HERE`
+AlexNet has substantially more parameters than LeNet with 60M parametesr. LeNet has 60k parameters. 
+
+For the memory, I'm guessing that the memory usage is the green column that says x / y MB but for some reason my username isn't popping up next ot GPU 0 after I train the LeNet model (but it did successfully train). 
 
 ## 4.2 Train AlexNet on CIFAR10. What accuracy do you get?
 
 Report training and validation accuracy on AlexNet and LeNet. Report hyperparameters for both models (learning rate, batch size, optimizer, etc.). We get ~77% validation with AlexNet.
+
 
 > You can just copy the config file, don't need to write it all out again.
 > Also no need to tune the models much, you'll do it in the next part.
