@@ -15,6 +15,7 @@ class ResNetBlock(nn.Module):
         Create a residual block for our ResNet18 architecture.
 
         Here is the expected network structure:
+        
         - conv layer with
             out_channels=out_channels, 3x3 kernel, stride=stride
         - batchnorm layer (Batchnorm2D)
@@ -35,18 +36,33 @@ class ResNetBlock(nn.Module):
         When performing a forward pass, the ReLU activation should be applied after the first batchnorm layer
         and after the second batchnorm gets added to the shortcut.
         """
-        ## YOUR CODE HERE
-
         ## Initialize the block with a call to super and make your conv and batchnorm layers.
-        super(ResNetBlock, self).__init__()
-        # TODO: Initialize conv and batch norm layers with the correct parameters
 
+        super(ResNetBlock, self).__init__()
+
+        # TODO: Initialize conv and batch norm layers with the correct parameters
+        self.blockconv1 = nn.Sequential(
+            nn.Conv2d(in_channels=in_channels, out_channels=in_channels, kernel_size=3, padding=1, stride=stride, bias=False),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU())
+        self.blockconv2 = nn.Sequential(
+            nn.Conv2d(in_channels=in_channels, out_channels=in_channels, kernel_size=3, padding=1, stride=1, bias=False),
+            nn.BatchNorm2d(out_channels))
+        self.downsample = downsample
+        self.relu = nn.ReLU()
+        self.out_channels = out_channels
         ## Use some conditional logic when defining your shortcut layer
         ## For a no-op layer, consider creating an empty nn.Sequential()
-        self.shortcut = None  # ???
         # TODO: Code here to initialize the shortcut layer
 
-        ## END YOUR CODE
+        self.shortcut = nn.Sequential()
+
+        if stride != 1 or in_channels != out_channels:
+          self.shortcut = nn.Sequential(
+            nn.Conv2d(in_channels=in_channels, out_channels=out_channels, kernel_size=1, stride=stride, bias=False),
+            nn.BatchNorm2d(out_channels))
+        else:
+          self.shortcut = None
 
     def forward(self, x):
         """
@@ -55,20 +71,21 @@ class ResNetBlock(nn.Module):
         x: batch of images of shape (batch_size, num_channels, width, height)
         returns: result of passing x through this block
         """
-        ## YOUR CODE HERE
+        residual = x 
         ## TODO: Call the first convolution, batchnorm, and activation
-
+        out = self.blockconv1(x)
+        
         ## TODO: Call the second convolution and batchnorm
-
+        out = self.blockconv2(out)
         ## TODO: Also call the shortcut layer on the original input
 
         ## TODO: Sum the result of the shortcut and the result of the second batchnorm
         ## and apply your activation
-
-        # return out
-        ## END YOUR CODE
-        pass  # Remove this line when you implement this function
-
+        if self.downsample:
+            residual = self.downsample(x)
+        out += residual 
+        out = self.relu(out)
+        return out 
 
 class ResNet18(nn.Module):
     def __init__(self, num_classes=200):
