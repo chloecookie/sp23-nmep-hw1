@@ -21,17 +21,18 @@ from models import build_model
 from optimizer import build_optimizer
 from utils import create_logger, load_checkpoint, save_checkpoint
 
-run = wandb.init(
-  project="kaggle",
-  notes="My first experiment",
-)
+# run = wandb.init(
+#   project="kaggle",
+#   notes="My first experiment",
+# )
 
 
-for epoch in range(wandb.config.epochs):
-    for batch in dataloader:
-      loss, accuracy = model.training_step()
-      # 3. Log metrics inside your training loop to visualize model performance
-      wandb.log({"accuracy": accuracy, "loss": loss})
+#     for epoch in range: 
+# # for epoch in range(wandb.config.epochs):
+#     for batch in dataloader:
+#       loss, accuracy = model.training_step()
+#       # 3. Log metrics inside your training loop to visualize model performance
+#     #   wandb.log({"accuracy": accuracy, "loss": loss})
 
 def parse_option():
     parser = argparse.ArgumentParser("Vision model training and evaluation script", add_help=False)
@@ -102,7 +103,7 @@ def main(config):
         train_acc1, train_loss = train_one_epoch(config, model, criterion, data_loader_train, optimizer, epoch)
         logger.info(f" * Train Acc {train_acc1:.3f} Train Loss {train_loss:.3f}")
         logger.info(f"Accuracy of the network on the {len(dataset_train)} train images: {train_acc1:.1f}%")
-        wandb.log({"accuracy": train_acc1, "loss": train_loss})
+        # wandb.log({"accuracy": train_acc1, "loss": train_loss})
         
         # train_acc1, _ = validate(config, data_loader_train, model)
         val_acc1, val_loss = validate(config, data_loader_val, model)
