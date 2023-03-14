@@ -8,6 +8,7 @@ import time
 import numpy as np
 import torch
 import torch.nn as nn
+import wandb
 from fvcore.nn import FlopCountAnalysis, flop_count_str
 from timm.utils import AverageMeter, accuracy
 from torch.optim.lr_scheduler import CosineAnnealingLR
@@ -20,6 +21,17 @@ from models import build_model
 from optimizer import build_optimizer
 from utils import create_logger, load_checkpoint, save_checkpoint
 
+run = wandb.init(
+  project="kaggle",
+  notes="My first experiment",
+)
+
+
+for epoch in range(wandb.config.epochs):
+    for batch in dataloader:
+      loss, accuracy = model.training_step()
+      # 3. Log metrics inside your training loop to visualize model performance
+      wandb.log({"accuracy": accuracy, "loss": loss})
 
 def parse_option():
     parser = argparse.ArgumentParser("Vision model training and evaluation script", add_help=False)
@@ -86,11 +98,12 @@ def main(config):
 
     logger.info("Start training")
     start_time = time.time()
-    for epoch in range(config.TRAIN.START_EPOCH, config.TRAIN.EPOCHS):
+    for epoch in range(config.TRAIN.START_EPOCH, config.TRAIN.EPOCHS, wandb.config.epochs):
         train_acc1, train_loss = train_one_epoch(config, model, criterion, data_loader_train, optimizer, epoch)
         logger.info(f" * Train Acc {train_acc1:.3f} Train Loss {train_loss:.3f}")
         logger.info(f"Accuracy of the network on the {len(dataset_train)} train images: {train_acc1:.1f}%")
-
+        wandb.log({"accuracy": train_acc1, "loss": train_loss})
+        
         # train_acc1, _ = validate(config, data_loader_train, model)
         val_acc1, val_loss = validate(config, data_loader_val, model)
         logger.info(f" * Val Acc {val_acc1:.3f} Val Loss {val_loss:.3f}")
