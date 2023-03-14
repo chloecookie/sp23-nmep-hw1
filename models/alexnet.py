@@ -33,24 +33,7 @@ class AlexNet(nn.Module):
             nn.Dropout(0.5),
             nn.Linear(9216, 4096),
             nn.ReLU())
-        self.fc1 = nn.Sequential(
-            nn.Dropout(0.5),
-            nn.Linear(4096, 4096),
-            nn.ReLU())
-        self.fc2= nn.Sequential(
-            nn.Linear(4096, num_classes))
-        
-    def forward(self, x):
-        out = self.layer1(x)
-        out = self.layer2(out)
-        out = self.layer3(out)
-        out = self.layer4(out)
-        out = self.layer5(out)
-        out = out.reshape(out.size(0), -1)
-        out = self.fc(out)
-        out = self.fc1(out)
-        out = self.fc2(out)
-        return out
+ 
 
 # class AlexNet(nn.Module):
 #     """Alexnet"""
