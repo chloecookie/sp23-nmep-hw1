@@ -47,14 +47,10 @@ class AlexNet(nn.Module):
         out = self.fc(out)
         out = self.fc1(out)
         out = self.fc2(out)
-        return out`
+        return out
 
 
-Narisam Haynam
-  12:47 PM
-I would recommend trying to get your version of Alexnet to work but if you are spending to much time on it you can use mine as reference
-Pinned by Narisam Haynam
-12:47
+
 class AlexNet(nn.Module):
     """Fake LeNet with 32x32 color images and 200 classes"""
     def __init__(self, num_classes: int = 200) -> None:
