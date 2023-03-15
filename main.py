@@ -8,7 +8,8 @@ import time
 import numpy as np
 import torch
 import torch.nn as nn
-import wandb
+
+# import wandb
 from fvcore.nn import FlopCountAnalysis, flop_count_str
 from timm.utils import AverageMeter, accuracy
 from torch.optim.lr_scheduler import CosineAnnealingLR
